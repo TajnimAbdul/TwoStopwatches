@@ -14,30 +14,55 @@ struct MenuContent: View {
         Button {
             manager.start(.work)
         } label: {
-            row(title: "Work", elapsed: manager.workElapsed)
+            Label {
+              row(title: "Work", elapsed: manager.workElapsed)
+            } icon: {
+              Image(systemName: "star.fill")
+            }
         }
 
         Button {
             manager.start(.relax)
         } label: {
-            row(title: "Relax", elapsed: manager.relaxElapsed)
+            Label {
+                row(title: "Relax", elapsed: manager.relaxElapsed)
+            } icon: {
+                Image(systemName: "heart.fill")
+            }
         }
-
         Divider()
 
-        Button("Pause Both") {
+        Button {
             manager.pauseBoth()
+        } label: {
+            Label {
+              Text("Pause Both")
+            } icon: {
+              Image(systemName: "pause.fill")
+            }
         }
 
         Divider()
-
-        Button("Quit") {
+        
+        Button {
             manager.quit()
-        }
+        } label: {
+          Label {
+            Text("Quit")
+          } icon: {
+            Image(systemName: "x.circle")
+          }
+      }
     }
 
     private func row(title: String, elapsed: TimeInterval) -> some View {
-      Text("\(title) \(formatted(elapsed))")
+        var line = AttributedString(title + "   ")
+
+        var time = AttributedString(formatted(elapsed))
+        time.foregroundColor = .secondary
+
+        line += time
+        return Text(line)
     }
 
     private func formatted(_ interval: TimeInterval) -> String {
