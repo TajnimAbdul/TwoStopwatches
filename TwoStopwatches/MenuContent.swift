@@ -14,13 +14,13 @@ struct MenuContent: View {
         Button {
             manager.start(.work)
         } label: {
-            row(title: "Start Work", elapsed: manager.workElapsed)
+            row(title: "Work", elapsed: manager.workElapsed)
         }
 
         Button {
             manager.start(.relax)
         } label: {
-            row(title: "Start to Relax", elapsed: manager.relaxElapsed)
+            row(title: "Relax", elapsed: manager.relaxElapsed)
         }
 
         Divider()
@@ -37,12 +37,7 @@ struct MenuContent: View {
     }
 
     private func row(title: String, elapsed: TimeInterval) -> some View {
-        HStack {
-            Text(title)
-            Spacer()
-            Text(formatted(elapsed))
-                .foregroundStyle(.secondary)
-        }
+      Text("\(title) \(formatted(elapsed))")
     }
 
     private func formatted(_ interval: TimeInterval) -> String {

@@ -5,7 +5,7 @@ import SwiftUI
 /// (0...59) within the current hour.
 private struct RadialMinuteRing: View {
     let progress: Double // 0...1
-    var lineWidth: CGFloat = 2.4
+    var lineWidth: CGFloat = 3.4
 
     var body: some View {
         ZStack {
@@ -26,10 +26,11 @@ private struct HourGlyph: View {
     let filled: Bool
 
     var body: some View {
-        Image(systemName: "\(hour).circle\(filled ? ".fill" : "")")
+      (hour == 0 ? Image(systemName: "0.circle\(filled ? ".fill" : "").ar") : Image(systemName: "\(hour).circle\(filled ? ".fill" : "")"))
             .resizable()
             .scaledToFit()
             .foregroundStyle(Color.black)
+            .opacity(0.55)
     }
 }
 
@@ -45,8 +46,8 @@ private struct HourGlyph: View {
 /// `MenuBarExtra`'s label does not reliably composite overlapping SwiftUI
 /// views live (overlapping content was silently being clipped/dropped).
 struct MenuBarIconContent: View {
-    static let size = CGSize(width: 27, height: 18)
-    private static let overlap: CGFloat = 5
+    static let size = CGSize(width: 31, height: 18)
+    private static let overlap: CGFloat = 0
 
     let mode: StopwatchMode
     let hour: Int
@@ -61,16 +62,16 @@ struct MenuBarIconContent: View {
                 Image(systemName: "circle.fill")
                     .resizable().scaledToFit()
                     .foregroundStyle(Color.black)
-                    .frame(width: 13, height: 13)
+                    .frame(width: 15, height: 15)
                     .offset(x: -Self.overlap)
-                Image(systemName: "circle")
-                    .resizable().scaledToFit()
-                    .foregroundStyle(Color.black)
-                    .frame(width: 13, height: 13)
-                    .offset(x: Self.overlap)
+//                Image(systemName: "circle")
+//                    .resizable().scaledToFit()
+//                    .foregroundStyle(Color.black)
+//                    .frame(width: 15, height: 15)
+//                    .offset(x: Self.overlap)
             } else {
                 HourGlyph(hour: hour, filled: filled)
-                    .frame(width: 16, height: 16)
+                    .frame(width: 15, height: 15)
                     .offset(x: -Self.overlap)
                 RadialMinuteRing(progress: minuteProgress)
                     .frame(width: 15, height: 15)
