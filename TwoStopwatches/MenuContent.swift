@@ -17,7 +17,7 @@ struct MenuContent: View {
             Label {
               row(title: "Work", elapsed: manager.workElapsed)
             } icon: {
-              Image(systemName: "star.fill")
+              Image(systemName: "star")
             }
         }
 
@@ -27,7 +27,7 @@ struct MenuContent: View {
             Label {
                 row(title: "Relax", elapsed: manager.relaxElapsed)
             } icon: {
-                Image(systemName: "heart.fill")
+                Image(systemName: "heart")
             }
         }
         Divider()
@@ -38,7 +38,7 @@ struct MenuContent: View {
             Label {
               Text("Pause Both")
             } icon: {
-              Image(systemName: "pause.fill")
+              Image(systemName: "pause")
             }
         }
 
@@ -50,7 +50,7 @@ struct MenuContent: View {
           Label {
             Text("Quit")
           } icon: {
-            Image(systemName: "x.circle")
+            Image(systemName: "xmark.rectangle")
           }
       }
     }

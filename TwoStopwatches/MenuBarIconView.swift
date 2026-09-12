@@ -59,16 +59,12 @@ struct MenuBarIconContent: View {
     var body: some View {
         ZStack {
             if mode == .idle {
-                Image(systemName: "circle.fill")
+                Image(systemName: "circle.tophalf.filled.inverse")
                     .resizable().scaledToFit()
                     .foregroundStyle(Color.black)
-                    .frame(width: 15, height: 15)
-                    .offset(x: -Self.overlap)
-//                Image(systemName: "circle")
-//                    .resizable().scaledToFit()
-//                    .foregroundStyle(Color.black)
-//                    .frame(width: 15, height: 15)
-//                    .offset(x: Self.overlap)
+                    .frame(width: 16, height: 16)
+                    .font(.title)
+                    .fontWeight(.heavy)
             } else {
                 HourGlyph(hour: hour, filled: filled)
                     .frame(width: 15, height: 15)
