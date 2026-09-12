@@ -117,8 +117,10 @@ final class StopwatchManager: NSObject, ObservableObject {
 
     private func startRefreshTimer() {
         refreshTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.checkForDayRollover()
-            self?.refreshIcon()
+            Task { @MainActor [weak self] in
+                self?.checkForDayRollover()
+                self?.refreshIcon()
+            }
         }
         // Keep the timer firing even while a menu is open / tracking the mouse.
         if let refreshTimer {
