@@ -5,14 +5,34 @@ import SwiftUI
 /// (0...59) within the current hour.
 private struct RadialMinuteRing: View {
     let progress: Double // 0...1
-    var lineWidth: CGFloat = 3.4
+    var lineWidth: CGFloat = 3.5
+    var diameter: CGFloat = 15  // must match the .frame() you apply to this view
+    
+    /// A round cap extends the visible stroke by ~half the line width past
+    /// wherever it's drawn — at both ends. Shrinking the end and advancing
+    /// the start by that same angular amount keeps both rounded tips'
+    /// outer edges lined up with where accurate flat (.butt) cuts would be:
+    /// the start sits exactly at 12 o'clock, the end sits exactly at the
+    /// true progress point.
+    private var capOvershoot: Double {
+        let radius = diameter / 2
+        return (lineWidth / 2) / (2 * .pi * radius)
+    }
+
+    private var trimStart: Double {
+        capOvershoot
+    }
+
+    private var trimEnd: Double {
+        max(progress - capOvershoot, trimStart + 0.0001)
+    }
 
     var body: some View {
         ZStack {
             Circle()
                 .stroke(Color.black.opacity(0.35), lineWidth: lineWidth)
             Circle()
-                .trim(from: 0, to: max(progress, 0.0001))
+                .trim(from: trimStart, to: trimEnd)
                 .stroke(Color.black, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
                 .rotationEffect(.degrees(-90))
         }
@@ -46,7 +66,7 @@ private struct HourGlyph: View {
 /// `MenuBarExtra`'s label does not reliably composite overlapping SwiftUI
 /// views live (overlapping content was silently being clipped/dropped).
 struct MenuBarIconContent: View {
-    static let size = CGSize(width: 31, height: 18)
+    static let size = CGSize(width: 22, height: 19)
     private static let overlap: CGFloat = 0
 
     let mode: StopwatchMode

@@ -1,12 +1,6 @@
 import SwiftUI
 
 /// The dropdown shown when the menu bar icon is clicked:
-///   Start Work        H:MM
-///   Start to Relax     H:MM
-///   ---------------
-///   Pause Both
-///   ---------------
-///   Quit
 struct MenuContent: View {
     @ObservedObject var manager: StopwatchManager
 
